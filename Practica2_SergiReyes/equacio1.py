@@ -10,6 +10,6 @@ class equacio1:
         num2 = float(calculante[2])
         if calculante[1] == "+":
             respuesta = (finalnum - num2) / tuX
-        else:
+        elif calculante[1] == "-":
             respuesta = (finalnum + num2) / tuX
         return "x " + "= " + str(respuesta)
