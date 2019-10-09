@@ -23,9 +23,14 @@ class test_unitari(unittest.TestCase):
     def test_negatiu(self):
         eq = equacio1("2x - p = 7")
         self.assertEqual(eq.calcula(),"l'equacio conte caracter no calculables: "+eq.s_eq)
-        
+
     def test_fromat_erroni(self):
         eq = equacio1("3 - 2x = 7")
         self.assertEqual(eq.calcula(),"l'equacio no segueix el format: ax + b = c")
+
+    def test_espai(self):
+        eq = equacio1("")
+        self.assertEqual(eq.calcula(),"l'equacio no segueix el format: ax + b = c")
+
 if __name__ == '__main__':
     unittest.main()

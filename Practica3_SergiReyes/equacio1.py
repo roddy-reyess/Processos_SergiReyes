@@ -7,7 +7,9 @@ class equacio1:
         self.finalnum = 0.0
         self.respuesta = 0.0
     def calcula(self):
-        if("x" in self.calculante[0]):
+        if not self.s_eq:
+            return "l'equacio no segueix el format: ax + b = c"
+        elif("x" in self.calculante[0]):
 
             self.tuX = self.calculante[0]
             self.tuX = self.tuX.replace(self.tuX[-1],'')
@@ -29,7 +31,7 @@ class equacio1:
             elif self.calculante[1] == "-":
                 self.respuesta = (self.finalnum + self.num2) / self.tuX
                 self.respuesta = float("{0:.2f}".format(self.respuesta))
-                
+
             else:
                 self.respuesta = "Error " + self.calculante[1]
             return self.respuesta
