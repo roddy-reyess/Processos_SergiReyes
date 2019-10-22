@@ -9,7 +9,7 @@ class llista_primers:
     >>> llista_primers(5)
     [2,3,5,7,11]
     >>> llista_primers(10)
-    [2,3,5,7,11, 13, 17, 19, 23, 29]
+    [2,3,5,7,11,13,17,19,23,29]
     """
     def __init__(self, n):
         """
