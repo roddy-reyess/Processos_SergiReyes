@@ -6,9 +6,9 @@ class llista_primers:
     """
     La classe llista_primers, a partir d'un número introduït
     pel usuari mostra els números primers corresponent. Exemmples:
-    >>> llista_primers(5)
+    >>> llista_primers(5).llista
     [2,3,5,7,11]
-    >>> llista_primers(10)
+    >>> llista_primers(10).llista
     [2,3,5,7,11,13,17,19,23,29]
     """
     def __init__(self, n):
