@@ -212,7 +212,7 @@ def addsteroids():
             asteroid = Asteroid((random.randint(0,800),random.randint(0,600)))
             world.sprites.add(asteroid)
         world.update()
-        clock.tick(40)
+        clock.tick(39)
 def main():
     """ runs our application """
 
