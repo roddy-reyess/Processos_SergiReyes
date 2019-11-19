@@ -212,7 +212,7 @@ def addsteroids():
             asteroid = Asteroid((random.randint(0,800),random.randint(0,600)))
             world.sprites.add(asteroid)
         world.update()
-        clock.tick(10)
+        clock.tick(40)
 def main():
     """ runs our application """
 
@@ -242,7 +242,7 @@ def main():
 
             world.handle_event(event)
 
-        world.update()
+
         world.render()
         pygame.display.flip()
         clock.tick(40)
