@@ -33,8 +33,8 @@ class World(object):
         # setup our event handlers
         self.event_handlers = {
             VIDEORESIZE: self.handle_resize,
-            #KEYDOWN: self.handle_keydown,
-            #KEYUP: self.handle_keyup
+            KEYDOWN: self.handle_keydown,
+            KEYUP: self.handle_keyup
         }
 
     def update(self):
@@ -71,7 +71,30 @@ class World(object):
         self.size = event.dict['size']
         self.surface = pygame.display.set_mode(self.size, self.RENDER_OPTIONS)
 
+    def handle_keydown(self, event):
+        if event.key == pygame.K_LEFT:
+            player.turn_left = True;
+        if event.key == pygame.K_RIGHT:
+            player.turn_right = True;
+        if event.key == pygame.K_UP:
+            player.forward = True
+        if event.key == pygame.K_DOWN:
+            player.backward = True
 
+    def handle_keyup(self, event):
+        if event.key == pygame.K_LEFT:
+            player.turn_left = False
+        if event.key == pygame.K_RIGHT:
+            player.turn_right = False
+        if event.key == pygame.K_UP:
+            player.forward = False
+        if event.key == pygame.K_DOWN:
+            player.backward = False
+        if event.key == pygame.K_SPACE:
+            print "muerto"
+            print player.facing.to_degrees()[0]
+            bullet = Bullet(self.player.rect.center,player.facing.to_degrees()[0]+180, 10)
+            self.sprites.add(bullet)
 class Vector(object):
 
     def __init__(self, x, y):
