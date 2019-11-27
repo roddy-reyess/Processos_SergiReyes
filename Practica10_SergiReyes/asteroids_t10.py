@@ -91,10 +91,9 @@ class World(object):
         if event.key == pygame.K_DOWN:
             player.backward = False
         if event.key == pygame.K_SPACE:
-            print "muerto"
-            print player.facing.to_degrees()[0]
             bullet = Bullet(self.player.rect.center,player.facing.to_degrees()[0]+180, 10)
             self.sprites.add(bullet)
+
 class Vector(object):
 
     def __init__(self, x, y):
