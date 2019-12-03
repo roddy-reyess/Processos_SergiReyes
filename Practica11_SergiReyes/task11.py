@@ -11,6 +11,7 @@ def busca(x):
     f.close()
 
 def substitueix(x):
+    s.acquire()
     f = open('fitxer.txt', 'r')
     fr = f.read()
     f.close()
@@ -25,6 +26,7 @@ def substitueix(x):
     f.write(fr[index2+1:])
     f.close()
     busca('100')
+    s.release()
 
 def inici():
     f = open('fitxer.txt', 'w')
@@ -34,8 +36,17 @@ def inici():
     #print open('fitxer.txt', 'ro').read()
 
 if __name__ == '__main__' :
-
+    s = Semaphore(1)
     inici()
     l = ['4','10','60']
-    for i in l:
-        substitueix(i)
+    p1 = Process(target=substitueix,args=[l[0],])
+    p2 = Process(target=substitueix,args=[l[1],])
+    p3 = Process(target=substitueix,args=[l[-1],])
+
+    p1.start()
+    p2.start()
+    p3.start()
+
+    p1.join()
+    p2.join()
+    p3.join()
