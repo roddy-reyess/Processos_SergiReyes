@@ -269,12 +269,15 @@ def collision_AsteroidBullet():
 def collision_PlayerAsteroid():
     for z in [y for y in world.sprites if isinstance(y, Asteroid)]:
         if abs(z.rect.center[0] - player.rect.center[0])<20 and abs(z.rect.center[1] - player.rect.center[1])<20:
-                red = (255, 0, 0)
-                world.surface.fill(red)
+                for x in [y for y in world.sprites]:
+                    x.kill()
+                bg = pygame.image.load("assets/game_over.jpg")
+                world.surface.blit(bg, (0,0))
                 world.render()
                 pygame.display.flip()
                 time.sleep(5)
                 world.running = False
+
 # setup pygame
 pygame.init()
 pygame.font.init()
@@ -313,6 +316,8 @@ def main():
         if len(world.sprites) < 30:
             asteroid = Asteroid((random.randint(0, 800), random.randint(0,600)))
             world.sprites.add(asteroid)
+
+
         world.update()
         world.render()
         pygame.display.flip()
