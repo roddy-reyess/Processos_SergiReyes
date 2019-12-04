@@ -177,7 +177,6 @@ class Player(Entity):
         self.turn_left = False
         self.turn_right = False
         self.accel = 0.15
-
     def update(self):
         # if we are thrusting, add the vector of our facing to the motion
         if self.forward:
@@ -230,36 +229,52 @@ class Asteroid(Entity):
         if self.duration <= 0:
             self.kill()
 
+s = Semaphore(1)
+
 def update_s():
     #print "entra"
     i = 0
     while world.running:
+        s.acquire()
         if i == 10 and len([x for x in world.sprites if isinstance(x, Asteroid)]) < 30:
             asteroid = Asteroid((random.randint(0, 800), random.randint(0,600)))
             world.sprites.add(asteroid)
             i = 0
         i += 1
-        collision_AsteroidBullet()
-        collision_PlayerAsteroid()
         world.update()
         world.render()
         pygame.display.flip()
+        s.release()
         clock.tick(40)
     #print 'acaba'
     return 0
+
+def update_collisions():
+    while world.running:
+        s.acquire()
+        collision_AsteroidBullet()
+        collision_PlayerAsteroid()
+        s.release()
+        clock.tick(40)
+
 
 def collision_AsteroidBullet():
 
     for i in [x for x in world.sprites if isinstance(x, Asteroid)]:
         for z in [y for y in world.sprites if isinstance(y, Bullet)]:
             if abs(z.rect.center[0] - i.rect.center[0])<20 and abs(z.rect.center[1] - i.rect.center[1])<20:
-                z.duration = 0
-                i.duration = 0
+                z.kill()
+                i.kill()
 
 def collision_PlayerAsteroid():
     for z in [y for y in world.sprites if isinstance(y, Asteroid)]:
         if abs(z.rect.center[0] - player.rect.center[0])<20 and abs(z.rect.center[1] - player.rect.center[1])<20:
-                print("Nave Muere")
+                red = (255, 0, 0)
+                world.surface.fill(red)
+                world.render()
+                pygame.display.flip()
+                time.sleep(5)
+                world.running = False
 # setup pygame
 pygame.init()
 pygame.font.init()
@@ -279,7 +294,9 @@ def main():
 
     # main loop
     supdate = Thread(target=update_s)
+    cupdate = Thread(target=update_collisions)
     supdate.start()
+    cupdate.start()
     while world.running:
 
         events = pygame.event.get()
