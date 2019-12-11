@@ -259,7 +259,6 @@ def update_collisions():
 
 
 def collision_AsteroidBullet():
-
     for i in [x for x in world.sprites if isinstance(x, Asteroid)]:
         for z in [y for y in world.sprites if isinstance(y, Bullet)]:
             if abs(z.rect.center[0] - i.rect.center[0])<20 and abs(z.rect.center[1] - i.rect.center[1])<20:
