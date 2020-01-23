@@ -11,14 +11,14 @@ s.bind((HOST, PORT))
 s.listen(5)
 conn, addr = s.accept()
 
-thread = Thread(target = messages.send_message, args = (raw_input("Envia un missatge pel client: "), conn, HOST, PORT, ))
-thread1 = Thread(target = messages.recv_message, args = (conn, ))
-thread.start()
-thread1.start()
+
 while True:
-    a = "hola"
+    if messages.recv_message(conn) == False:
+        time.sleep(1)
+        break
+    thread = Thread(target = messages.send_message, args = (raw_input("Envia un missatge pel client: "), conn, HOST, PORT, ))
+    thread.start()
+    thread.join()
 
 
-thread.join()
-thread1.join()
 s.close()
