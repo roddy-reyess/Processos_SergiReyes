@@ -1,13 +1,20 @@
 import socket
+import sys
 
-def send_message(message, socket, HOST, PORT):
-    bytesToSend = str.encode(message)
-    socket.sendall(bytesToSend)
+def send_message(socket, HOST, PORT):
+    while True:
+        message = raw_input("Envia un missatge: ")
+        bytesToSend = str.encode(message)
+        socket.sendall(bytesToSend)
+        if message.lower() == "bye":
+            break
+
+
 
 def recv_message(conn):
-    bytesAddressPair = str(conn.recv(1024))
-    print(">> " + bytesAddressPair)
-    if bytesAddressPair.lower() == "bye":
-        return False
-    else:
-        return True
+    while True:
+        bytesAddressPair = str(conn.recv(1024))
+        print("\n>> " + bytesAddressPair)
+        if bytesAddressPair.lower() == "bye":
+            conn.sendall(bytesAddressPair)
+            break
