@@ -1,7 +1,7 @@
 import socket
-import sys
 
-def send_message(socket, HOST, PORT):
+
+def send_message(socket):
     while True:
         message = raw_input("Envia un missatge: ")
         bytesToSend = str.encode(message)
