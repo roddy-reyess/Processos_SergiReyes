@@ -32,7 +32,7 @@ def ClickAction():
     s.sendall(EntryText)
     if EntryText[:-1].lower() == "bye":
         s.close()
-        Tkinter.destroy()
+        base.destroy()
 #---------------------------------------------------#
 #----------------- KEYBOARD EVENTS -----------------#
 #---------------------------------------------------#
