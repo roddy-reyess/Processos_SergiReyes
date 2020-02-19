@@ -19,14 +19,14 @@ def add_Con():
         user = ""
         connections.append(s.accept())
         if len(usernames) == 0:
-            connections[-1][0].sendto("Server :Insereix un nom d'usuari", connections[-1][1])
+            connections[-1][0].sendto("Server :Insereix un nom d'usuari\n", connections[-1][1])
             user = connections[-1][0].recv(1024)
             usernames.append((user, connections[-1][1][1]))
         else:
             for client in connections:
                 for uname in usernames:
                     if client[1][1] != uname[1]:
-                        client[0].sendto("Server :Insereix un nom d'usuari", client[1])
+                        client[0].sendto("Server :Insereix un nom d'usuari\n", client[1])
                         user = client[0].recv(1024)
                         usernames.append((user,  client[1][1]))
 
